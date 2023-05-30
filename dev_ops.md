@@ -27,9 +27,11 @@ Do other metrics make more sense in the context of your work or application? The
 
 You're not alone. At first glance this might sound like a good thing, however, everyone that has been working in a team of software developers, with multiple of them working on the same piece of code, knows that it comes with some drawbacks. Can you remember the time you had to resolve 20 merge conflicts because the new guy had pushed two weeks worth of changes straight to main? (I hopefully don't have to tell you to use version control.)
 
-- Trunk based
-- Github Flow
-- GitFlow
+- Trunk based: The strategy is as easy as it gets. Everyone commits directly to the main branch (a.k.a. trunk). Constantly. Team members integrate each others changes without time-consuming merging processes. Conflicts are resolved fast and issues identified early. However, it requires a lot of discipline. Every team member needs to ensure that functionality is sufficiently tested. If you break main it is your responsibility to fix it - immediately. It might require some experience and seniority of the team members. It requires expertise in git and familiarity with feature flags.
+- Github Flow: In this strategy, team members create short lived feature branches by branching out from main. main should always be in a working state and changes are added by merging the feature branches (ideally after a peer review). 
+- GitFlow:
+
+There are other, even more complicated branching strategies than GitFlow. The authors advice: Don't!
 
 ## Establish and enforce best practices
 PR review, Pre commit hooks, autoformatters
