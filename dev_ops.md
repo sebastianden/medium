@@ -1,7 +1,4 @@
 # How to DevOps
-Author: Sebastian Dengler
-
-Date: June 2023
 
 ## Once upon a time...
 
@@ -25,41 +22,41 @@ Do other metrics make more sense in the context of your work or application? The
 
 ## Decide on a branching strategy
 
-You're not alone. At first glance this might sound like a good thing, however, everyone that has been working in a team of software developers, with multiple of them working on the same piece of code, knows that it comes with some drawbacks. Can you remember the time you had to resolve 20 merge conflicts because the new guy had pushed two weeks' worth of changes straight to main? (I hopefully don't have to tell you to use version control.)
+You're not alone. At first glance this might sound like a good thing, however, everyone that has been working in a team of software developers, with multiple of them working on the same piece of code, knows that it comes with some drawbacks. Can you remember the time you had to resolve 20 merge conflicts because the new guy had pushed two weeks' worth of changes straight to main? (I hopefully don't have to tell you to use version control). Since the beginning of Git developers have devised hundreds of strategies for merging code changes. However, lately, there is a growing trend towards the most simple ones, so we'll start with those and move up in complexity:
 
-- Trunk based: The strategy is as easy as it gets. Everyone commits directly to the main branch (a.k.a. trunk). Constantly. Team members integrate each other's changes without time-consuming merging processes. Conflicts are resolved fast and issues identified early. However, it requires a lot of discipline. Every team member needs to ensure that functionality is sufficiently tested. If you break main it is your responsibility to fix it - immediately. It might require some experience and seniority of the team members. It requires expertise in git and familiarity with feature flags.
+- Trunk-based: The strategy is as easy as it gets. Everyone commits directly to the main branch (a.k.a. trunk). Constantly. Team members integrate each other's changes without time-consuming merging processes. Conflicts are resolved fast and issues identified early. However, it requires a lot of discipline. Every team member needs to ensure that functionality is sufficiently tested. If you break main it is your responsibility to fix it - immediately. It might require some experience and seniority of the team members. It requires expertise in git and familiarity with feature flags.
 - GitHub Flow/Feature Branches: In this strategy, team members create short-lived feature branches by branching out from main. main should always be in a working state and changes are added by merging the feature branches (ideally after a peer review).
-- GitFlow:
+- GitFlow: This strategy utilizes multiple branches. New features are developed by branching out from a dev or develop branch. Once a feature is ready to be released, a release branch is created which in turn is merged into the main branch. Sounds complicated? It gets even better: If a bug is identified a hotfix branch is created containing the bugfix, which has to be merged into both, the develop branch  and the main branch. It can be quite slow and tiresome to entangle this scheme of branches, however, this strategy allows for precise versioning and individual releases.
 
-There are other - even more complicated - branching strategies than GitFlow. The authors' advice: Don't!
+Now you might be asking: Which strategy should my team use? The answer is: It depends. If you believe your team has the necessary experience or if it doesn't matter that things are broken from time to time then maybe trunk-based development is for you. If you put a lot of value into quality but still want to integrate changes often and fast, go with feature branches. Try to avoid GitFlow if possible. There are other - even more complicated - branching strategies than GitFlow. The authors' advice: Don't!
 
 ## Establish and enforce best practices
 
-Some people like single quotes, some people like double quotes. Some people end their lines with semicolons, others don't. And that's okey... until you find out that both types of people exist in your team. It makes code style inconsistent and the git history confusing since everything appears to be changed all the time. One way to address this issue is to agree on a set of standards within your team. Google is leading by example here by creating a style guide for nearly every programming language known to man and open-sourcing them
-Style guide [Google](https://google.github.io/styleguide/), rule book
-
-pylint
-
-autopep8, black for Python or Prettier for TypeScript and web development
-PR review set rules for pr , Pre-commit hooks Examples are [husky](https://typicode.github.io/husky/) and [pre-commit](https://pre-commit.com), autoformatters write custom rules
+Some people like single quotes, some people like double quotes. Some people end their lines with semicolons, others don't. And that's okay... until you find out that both types of people exist in your team. This makes code style inconsistent and the git history confusing since everything appears to be changed all the time. One way to address this issue is to agree on a set of standards within your team. Google is leading by example here by creating a [style guide](https://google.github.io/styleguide/) for nearly every programming language known to man and open-sourcing them. Try to create your own style guide. You can start by taking inspiration from others and add new rules over time.
+It's good to have a set of rules or best practices clearly defined and written down, however, developers tend to forget these things if not reminded constantly. And because developers also tend to be smart people they long figured out how to automate most of this. You can have programs check your code for violations of standards and best practices (e.g. [pylint](https://pypi.org/project/pylint/)) and auto-format it to conform to a consistent style (e.g. [black](https://github.com/psf/black), [autopep8](https://pypi.org/project/autopep8/) for python or [prettier](https://prettier.io) for TypeScript and general web development).
+Another way of enforcing best practices is during code reviews. Create a list of rules which both author and reviewer can tick off when they create or review a code change. Even better than that: Use pre-commit hooks. These are functions that automatically get triggered when e.g. `git commit` is run and can be used to execute checks against the files to be committed. This way you can detect failing tests and style violations (for example if Kyle is using tabs instead of space again) before code even is committed and pushed. Examples of pre-commit packages are [husky](https://typicode.github.io/husky/) and [pre-commit](https://pre-commit.com).
 
 
 ## Automate, automate, automate
 
-DevOps is closely related to the practice of CI/CD (Continuous Integration, Continuous Delivery ... or Deployment depending on who you ask). The idea of CI/CD is to have large parts of the release process of software automated away from the software developer so he or she can focus on developing and not installing the latest binary on the server every time they want to release a new feature. The idea of CI is that each commit instantly triggers an automated build pipeline
+DevOps is closely related to the practice of CI/CD (Continuous Integration, Continuous Delivery... or Deployment depending on who you ask). The idea of CI/CD is to have large parts of the release process of software automated away from the software developer so he or she can focus on developing and not installing the latest binary on the server every time they want to release a new feature. The idea of CI is that each commit instantly triggers an automated build pipeline
 
 Automate the build of your application, automate the deployment of your application and automate the provisioning of your infrastructure. What about testing? Automate that as well.
 
 Try and reduce the time the CI stage takes as much as possible as it will be run every time you make a commit. And remember, you're supposed to make small changes often and commit them often.
 
+## Testing
+TDD, BDD
+Integration Tests, E2E, Unit
+Code coverage
+
 
 ## Shift left on security, DevSecOps
-The term "shifting left" translates to integrating something into the development process from the start (which would be located on the left side of any ugly roadmap PowerPoint slide of a product owner that behaves like a project manager). We have seen this with operations. Ideally, we want to tear down the fence and merge smith and knight into one single role. What is stopping us from doing that with other important software aspects? One often-forgotten topic is security. The authors have more than once seen fellow developers twitch when the word is even mentioned. That's because security is hard. It requires a deep understanding of the technologies used in your application and is thus often disregarded when developing under time pressure. This backfires by the time development is nearly done and the quality department is having a first look at the product. By then it is too late. Your 12 GB large docker images have 847 critical vulnerabilities and your python packages have dependencies that secretly make your compute resources mine Bitcoin.
+The term "shifting left" translates to integrating something into the development process from the start (which would be located on the left side of any ugly roadmap PowerPoint slide of a product owner that behaves like a project manager). We have seen this with operations. Ideally, we want to tear down the fence and merge smith and knight into one single role. What is stopping us from doing that with other important software aspects? One often-forgotten topic is security. The authors have more than once seen fellow developers twitch when the word is even mentioned. That's because security is hard. It requires a deep understanding of the technologies used in your application and is thus often disregarded when developing under time pressure. This backfires by the time development of a new feature is nearly done and quality assurance is having a first look at the product. By then it is too late. Your 12 GB large docker images have 847 critical vulnerabilities and your python packages have dependencies that secretly make your compute resources mine Bitcoin. You are better than that. Tools exist to test your code for potential vulnerabilities early on in the development process. You can configure them to break your build pipeline if an issue with a too-high criticality is identified. Many of these tools are commercial and quite expensive. Nevertheless, if you are developing software in an enterprise setup you should seriously consider using a paid service. There are also free and open-source tools available that offer comparable feedback, such as e.g. [bandit](https://bandit.readthedocs.io/en/latest/) for Python code or [cfn-nag](https://github.com/stelligent/cfn_nag)/[cdk-nag](https://github.com/cdklabs/cdk-nag) for AWS Infrastructure-as-Code.
 
 ## Hope for the best, expect the worst
-Testing in production, chaos engineering, game days
-High-performing teams test in production. And not just at deployment. They are running tests continuously to check the health of their application. Even more advanced organizations are taking it to the next level. Netflix infamously is letting loose "chaos monkeys" randomly terminating parts of their infrastructure in production to test the self-healing capabilities of their systems.
-At least be prepared: Define RPO and RTO, Define a disaster recovery strategy. Organize game days where system failures are simulated and the team has to troubleshoot.
+High-performing teams test in production. And not just at deployment. They are running tests continuously to check the health of their application. Even more advanced organizations are taking it to the next level. Netflix infamously is letting loose "chaos monkeys" randomly terminating parts of their infrastructure in production to test the self-healing capabilities of their systems. This practice is also known as "chaos engineering".
+If you're working in a regulated environment and this is not an option, at least be prepared: Define RPO and RTO, Define a disaster recovery strategy. Organize game days where system failures are simulated and the team has to troubleshoot.
 
 
 ## It takes time
