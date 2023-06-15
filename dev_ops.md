@@ -6,6 +6,10 @@
 
 Does this "fairy tale" sound oddly familiar to you? Do you identify with the knight or maybe the smith? Are "over-the-fence deliveries" a common thing in your team or organization?
 
+<p align="center">
+<img width=400 src="https://img.devrant.com/devrant/rant/r_2948651_xEiez.jpg"/>
+</p>
+
 The term DevOps is a combination of the words "Development" __and__ "Operations". With an emphasis on the word "and" that's not even in the term. A development team is supposed to develop __and__ take care of the product they are developing after its release. This makes sense since the developers are probably the ones who understand the technical intricacies of the solution the best. The term DevOps is also often used as a buzzword. Few people that are using the word know what it entails and even fewer are actually practicing it. The purpose of this article is to point you in the right direction. It will show you a list of things you should consider if you're working in a software engineering profession and want to excel at what you are doing or at least be part of the discussion. It will also provide you with some tangible advice on how to get started on your DevOps journey.
 
 ## Measure everything
